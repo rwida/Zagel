@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Zagel - زاجل</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share App</string>
+    <string name="menu_send">Send Mail</string>
+
+    <string name="describe">قوات حفتر توافق على هدنة في طرابلس</string>
+    <string name="amircawoman"> أميركية عمرها 107 أعوام .. "السر في العزوبية" </string>
+    <string name="cotinio"> بعد "التخلي" عن كوتينيو .. برشلونة يتلقى ضربة قاسية </string>
+    <string name="space"> أصحاب المليارات حجزوا .. هل يحتكر الأغنياء السفر للفضاء؟</string>
+    <string name="dwayn"> دواين جونسون يدخل القفص الذهبي .. تعرف على زوجته </string>
+    <string name="sudia"> السعودية .. المرأة الحاضنة تحصل على حق جديد </string>
+    <string name="sick"> رعب بعد ادعاء امرأة "تعمد" إصابة آخرين بالإيدز </string>
+    <string name="fat">بعد إساءتها للبدينات.. إيقاف ريهام سعيد وإحالتها للتحقيق</string>
+    <string name="ellisa">إليسا تصدم جمهورها وتعلن اعتزالها: "هذا ألبومي الأخير"</string>
+    <string name="project">مصر.. مشروع رقمي جديد يجمع بيانات الدولة في مكان واحد</string>
+    <string name="sheren">أول تجربة خليجية للفنانة شيرين.. كيف استقبلها الجمهور؟</string>
+    <string name="airplane">طائرات إيرباص الجديدة.. تحاكي الطبيعة وتوفر نصف الوقود!</string>
+
+</resources>

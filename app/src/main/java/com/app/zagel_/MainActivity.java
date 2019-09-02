@@ -1,0 +1,236 @@
+package com.app.zagel_;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.widget.Toast;
+import com.google.android.material.navigation.NavigationView;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    MyDB objDB;
+    ArrayList<DBmodel> objmodelarrayList;
+    RecyclerView recyclerView;
+    public DrawerLayout mDrawer;
+    SliderView sliderView;
+    MediaPlayer mMediaPlayer;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mDrawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+
+        objDB = new MyDB(this,"all");
+        objmodelarrayList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.recyclerview);
+
+        sliderView = findViewById(R.id.imageSlider);
+
+        final SliderAdapterExample adapter = new SliderAdapterExample(this);
+        adapter.setCount(10);
+
+        sliderView.setSliderAdapter(adapter);
+
+        sliderView.setIndicatorAnimation(IndicatorAnimations.SLIDE); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        sliderView.startAutoCycle();
+
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                sliderView.setCurrentPagePosition(position);
+            }
+        });
+
+
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(this , R.raw.policy);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setLooping(false);
+        mMediaPlayer.start();
+        onPause();
+
+        showData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(MainActivity.this,MainActivity.class));
+            finish();
+
+        } else if (id == R.id.nav_policy){
+            startActivity(new Intent(MainActivity.this,PolicyActivity.class));
+            finish();
+        }
+
+        else if (id == R.id.nav_football){
+            startActivity(new Intent(MainActivity.this,FootballActivity.class));
+            finish();
+        }
+
+        else if (id == R.id.nav_economy){
+            startActivity(new Intent(MainActivity.this,EconomieActivity.class));
+            finish();
+        }
+
+        else if (id == R.id.nav_celebrities){
+            startActivity(new Intent(MainActivity.this,CelebrityActivity.class));
+            finish();
+        }
+
+        else if (id == R.id.nav_share) {
+
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+            share.putExtra(Intent.EXTRA_SUBJECT,"My App");
+            String applink = "https://play.google.com/store/apps/details?id=com.app.zagel_";
+            share.putExtra(Intent.EXTRA_SUBJECT,"Try My App" + applink);
+            startActivity(Intent.createChooser(share, "Share Via"));
+
+        } else if (id == R.id.nav_send) {
+
+            String txt = "Hello !! \n Please enter your Suggestion : ";
+            Intent sendemail = new Intent(Intent.ACTION_SEND);
+            sendemail.setData(Uri.parse("mailto:"));
+            sendemail.setType("message/rfc822");
+            sendemail.putExtra(Intent.EXTRA_EMAIL,"www.rwidaosama33@gmail.com");
+            sendemail.putExtra(Intent.EXTRA_SUBJECT,"A5bary app");
+            sendemail.putExtra(Intent.EXTRA_TEXT,txt);
+            startActivity(sendemail);
+
+        } else if (id == R.id.nav_exit){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Are you sure you want to exit?")
+                    .setTitle("Confirm exit")
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).show();
+
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public void showData(){
+        try {
+            objmodelarrayList = objDB.getAllData();
+            dbAdapter objDbadapter = new dbAdapter(objmodelarrayList,MainActivity.this);
+            recyclerView.hasFixedSize();
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(objDbadapter);
+        }
+        catch (Exception e){
+            Toast.makeText(this, "ShowData:-" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Are you sure you want to exit?")
+                    .setTitle("Confirm exit")
+                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).show();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (this.isFinishing()){
+            mMediaPlayer.stop();
+        }
+    }
+
+
+}

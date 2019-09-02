@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home"/>
+
+        <item
+            android:id="@+id/nav_policy"
+            android:icon="@drawable/ic_earth"
+            android:title="Policy"/>
+
+        <item
+            android:id="@+id/nav_football"
+            android:icon="@drawable/ic_football_ball"
+            android:title="Sport"/>
+
+        <item
+            android:id="@+id/nav_economy"
+            android:icon="@drawable/ic_economy"
+            android:title="Economie"/>
+
+        <item
+            android:id="@+id/nav_celebrities"
+            android:icon="@drawable/ic_celebrity"
+            android:title="Celebrities"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/menu_share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_send" />
+        </menu>
+    </item>
+
+    <item android:title="Exit">
+        <menu>
+            <item
+                android:id="@+id/nav_exit"
+                android:icon="@drawable/ic_door"
+                android:title="Log out" />
+        </menu>
+    </item>
+
+</menu>
